@@ -1,0 +1,4 @@
+
+Please upload your certificate template image into this folder.
+1. Rename your image to: certificate-bg.png
+2. Drag and drop it into this 'public' folder.
