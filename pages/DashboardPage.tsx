@@ -579,8 +579,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout }) => {
               ></div>
           )}
 
-          {/* Sidebar - Reduced width from w-64 to w-56 */}
-          <aside className={`bg-[#3730a3] w-56 flex-shrink-0 flex flex-col transition-transform duration-300 ease-in-out transform absolute lg:relative inset-y-0 left-0 z-20 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+          {/* Sidebar - Reduced width from w-56 to w-48 */}
+          <aside className={`bg-[#3730a3] w-48 flex-shrink-0 flex flex-col transition-transform duration-300 ease-in-out transform absolute lg:relative inset-y-0 left-0 z-20 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
             <div className="flex-1 py-6 flex flex-col overflow-y-auto">
                 <nav className="space-y-1">
                     <NavItem view={DashboardView.Dashboard} icon={<CloudIcon className="w-5 h-5" />} label="Dashboard" />
