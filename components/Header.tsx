@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Page } from '../types';
-import { Logo, SearchIcon, LockIcon, CheckCircleIcon } from './icons';
+import { Logo, LockIcon, CheckCircleIcon } from './icons';
 
 interface HeaderProps {
   onNavigate: (page: Page) => void;
@@ -63,7 +63,6 @@ export const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
         {/* Right Side Actions (Desktop) */}
         <div className="hidden lg:flex items-center space-x-6">
-          <button className="text-gray-900"><SearchIcon className="w-6 h-6" /></button>
           {isAuthPage ? (
              <button onClick={() => onNavigate(Page.Verification)} className="flex items-center px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 transition">
                <CheckCircleIcon className="w-4 h-4 mr-2" />

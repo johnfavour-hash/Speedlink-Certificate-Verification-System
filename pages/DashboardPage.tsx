@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { DashboardView, Certificate, Student, Page } from '../types';
 import { 
   Logo, CertificateIcon, UsersIcon, ProfileIcon, LogoutIcon, 
-  SearchIcon, ArrowUpRightIcon, CloudIcon, FilePlusIcon, ImportIcon,
-  FilterListIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon, BookOpenIcon, CheckCircleIcon, ClockIcon
+  ArrowUpRightIcon, CloudIcon, FilePlusIcon, ImportIcon,
+  FilterListIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon, BookOpenIcon, CheckCircleIcon, ClockIcon, SearchIcon,
+  CameraIcon, KeyIcon, MapPinIcon, MailIcon
 } from '../components/icons';
 import StatCard from '../components/StatCard';
 import Illustration from '../components/Illustration';
@@ -377,10 +378,133 @@ const StatsAndVerifyView: React.FC = () => {
     );
 };
 
-// All three views now use the same component as per the provided screenshots
+const ProfileContent: React.FC = () => {
+    return (
+        <div className="space-y-8">
+            <h2 className="text-3xl font-bold text-gray-800">My Profile</h2>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Left Column: Personal Info & Security */}
+                <div className="lg:col-span-2 space-y-8">
+                    {/* Personal Information */}
+                    <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                        <div className="flex items-center justify-between mb-6">
+                            <h3 className="text-xl font-bold text-gray-700">Personal Information</h3>
+                            <button className="text-sm text-indigo-600 font-medium hover:text-indigo-800">Edit</button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-500">Full Name</label>
+                                <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
+                                    <UsersIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                    <span className="text-gray-800">System Administrator</span>
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-500">Email Address</label>
+                                <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
+                                    <MailIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                    <span className="text-gray-800">admin@speedlink.com</span>
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-500">Phone Number</label>
+                                <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
+                                    <span className="text-gray-400 mr-3 w-5 text-center">#</span>
+                                    <span className="text-gray-800">+234 800 123 4567</span>
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-500">Location</label>
+                                <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
+                                    <MapPinIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                    <span className="text-gray-800">Lagos, Nigeria</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Security Settings */}
+                    <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                         <h3 className="text-xl font-bold text-gray-700 mb-6">Security Settings</h3>
+                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                             <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-500">Current Password</label>
+                                <div className="flex items-center p-3 bg-white rounded-md border border-gray-200 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+                                    <KeyIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                    <input type="password" placeholder="••••••••" className="w-full outline-none text-gray-700 placeholder-gray-300" />
+                                </div>
+                            </div>
+                             <div className="space-y-2">
+                                <label className="text-sm font-medium text-gray-500">New Password</label>
+                                <div className="flex items-center p-3 bg-white rounded-md border border-gray-200 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+                                    <KeyIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                    <input type="password" placeholder="••••••••" className="w-full outline-none text-gray-700 placeholder-gray-300" />
+                                </div>
+                            </div>
+                         </div>
+                         <div className="flex justify-end">
+                             <button className="bg-[#3730a3] text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-800 transition">
+                                 Change Password
+                             </button>
+                         </div>
+                    </div>
+                </div>
+
+                {/* Right Column: Profile Summary */}
+                <div className="space-y-8">
+                    {/* Profile Card */}
+                    <div className="bg-white rounded-lg shadow-sm p-8 border border-gray-100 flex flex-col items-center text-center">
+                        <div className="relative mb-4">
+                            <div className="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 text-3xl font-bold">
+                                SA
+                            </div>
+                            <button className="absolute bottom-0 right-0 bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700 shadow-md">
+                                <CameraIcon className="w-4 h-4" />
+                            </button>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-800">System Administrator</h3>
+                        <p className="text-gray-500 text-sm mb-4">Super Admin</p>
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-600 mb-6">
+                            <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                            Active
+                        </span>
+                        <button className="w-full border border-gray-300 text-gray-600 py-2 rounded-md font-medium hover:bg-gray-50 transition text-sm">
+                            Sign Out
+                        </button>
+                    </div>
+
+                    {/* Account Summary */}
+                    <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                         <h3 className="text-lg font-bold text-gray-700 mb-4">Account Summary</h3>
+                         <ul className="space-y-4">
+                             <li className="flex justify-between items-center border-b border-gray-50 pb-2">
+                                 <span className="text-gray-500 text-sm">Role</span>
+                                 <span className="text-gray-800 font-medium text-sm">Super Admin</span>
+                             </li>
+                             <li className="flex justify-between items-center border-b border-gray-50 pb-2">
+                                 <span className="text-gray-500 text-sm">Joined</span>
+                                 <span className="text-gray-800 font-medium text-sm">Nov 2023</span>
+                             </li>
+                             <li className="flex justify-between items-center border-b border-gray-50 pb-2">
+                                 <span className="text-gray-500 text-sm">Last Login</span>
+                                 <span className="text-gray-800 font-medium text-sm">Today, 10:23 AM</span>
+                             </li>
+                             <li className="flex justify-between items-center">
+                                 <span className="text-gray-500 text-sm">Certificates</span>
+                                 <span className="text-gray-800 font-medium text-sm">1,250 Created</span>
+                             </li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+// Admins and Students still use the Verify View
 const StudentsContent: React.FC = () => <StatsAndVerifyView />;
 const AdminsContent: React.FC = () => <StatsAndVerifyView />;
-const ProfileContent: React.FC = () => <StatsAndVerifyView />;
 
 const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout }) => {
   const [activeView, setActiveView] = useState<DashboardView>(DashboardView.Dashboard);
@@ -436,12 +560,12 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout }) => {
 
           {/* Right Side Icons */}
           <div className="flex items-center space-x-4">
-            <button className="text-gray-400 hover:text-gray-600">
-              <SearchIcon className="w-6 h-6" />
-            </button>
-            <div className="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center text-white">
+            <button 
+                onClick={() => setActiveView(DashboardView.Profile)}
+                className="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center text-white hover:bg-indigo-700 transition focus:outline-none"
+            >
                 <ProfileIcon className="w-6 h-6" />
-            </div>
+            </button>
           </div>
         </div>
       </header>
