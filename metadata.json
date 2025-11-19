@@ -1,0 +1,5 @@
+{
+  "name": "Copy of Speedlink Certificate Verification System",
+  "description": "A secure, web-based platform that enables Speedlink to generate tamper-proof certificates with unique verification codes and allows the public to verify certificate authenticity.",
+  "requestFramePermissions": []
+}

@@ -1,11 +1,39 @@
-<div align="center">
+# Speedlink Certificate Verification System (SCVS)
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+## Executive Summary
+The Speedlink Certificate Verification System (SCVS) is a secure, web-based platform that enables Speedlink to generate tamper-proof certificates with unique verification codes and allows the public to verify certificate authenticity.
 
-  <h1>Built with AI Studio</h2>
+## Key Documents
+Below are the links to the key documents of this project:
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+*   **Product Requirement Document (PRD)**
+    *   Explains Speedlink’s understanding of the deliverables.
+    *   [PRD - SCVS PRD.docx](#)
+    
+*   **User Stories**
+    *   Detailed documentation of the user story narratives.
+    *   [User story document](#)
+    
+*   **Technical Architecture**
+    *   Overview of the technology used to build the product, including the chosen technology stack and justifications for the choices made.
+    *   [Technical document](#)
+    
+*   **User Flow**
+    *   Shows each flow a user will take to navigate through the platform.
+    *   [User Flow](#)
+    
+*   **Information Architecture (IA)**
+    *   Shows the flow of screens on the platform.
+    *   [IA](#)
+    
+*   **Design**
+    *   The high-fidelity design, made with Figma.
+    *   [Figma Product Design](#)
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Live Product
+*   **Staging link**: [link]
+*   **Production link**: [link]
 
-</div>
+## Project Timeline
+*   **Project Kickoff Date**: November 17th, 2025
+*   **Project Release Date**: TBD
