@@ -1,24 +1,11 @@
-
 import React from 'react';
 
 export const Logo: React.FC<{ className?: string }> = ({ className }) => (
-    <div className={`flex items-center gap-3 ${className}`}>
-         {/* Logo Mark: Blue ring/orbit with red swooshes */}
-        <div className="relative w-10 h-10 flex-shrink-0">
-            <svg viewBox="0 0 100 100" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                 {/* Blue Circular Orbit - Tilted and Open */}
-                 <path d="M85 70 A 40 40 0 1 1 75 15" stroke="#312e81" strokeWidth="8" strokeLinecap="round" />
-                 
-                 {/* Red Swooshes - Dynamic curves cutting through top right */}
-                 <path d="M40 35 Q 65 35 95 20" stroke="#ef4444" strokeWidth="8" strokeLinecap="round" />
-                 <path d="M30 55 Q 60 55 90 40" stroke="#ef4444" strokeWidth="8" strokeLinecap="round" />
-            </svg>
-        </div>
-        <div className="flex flex-col justify-center">
-            <span className="text-2xl font-bold text-[#ef4444] leading-none">SPEEDLINK</span>
-            <span className="text-[0.6rem] text-[#312e81] font-bold tracking-widest uppercase leading-tight mt-0.5">Hi-Tech Solutions Limited</span>
-        </div>
-    </div>
+    <img 
+        src="/speedlink-logo.png" 
+        alt="SPEEDLINK Hi-Tech Solutions Limited" 
+        className={`h-12 w-auto object-contain ${className}`}
+    />
 );
 
 export const DashboardIcon: React.FC<{ className?: string }> = ({ className }) => (
