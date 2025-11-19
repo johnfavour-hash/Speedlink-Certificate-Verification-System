@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { DashboardView, Certificate, Student, Page } from '../types';
 import { 
   Logo, CertificateIcon, UsersIcon, ProfileIcon, LogoutIcon, 
@@ -24,8 +24,8 @@ const dashboardCertificates: Certificate[] = [
     { id: '5', studentName: 'Duke Peter', course: 'Multimedia', issueDate: '2025-04-13', verificationCode: 'XKS928QP', certificateNo: 'SHSL/25/MM/0518', status: 'Verified' },
 ];
 
-// Mock data specifically for the Certificates Page screenshot
-const certificatesPageData: any[] = [
+// Expanded mock data for pagination testing
+const initialCertificatesPageData = [
     { name: 'John Prince', course: 'Full Stack Web Dev.', certificateId: 'SHSL/25/FS/0110', date: '2025-12-10' },
     { name: 'Sarah Connor', course: 'Cybersecurity', certificateId: 'SHSL/25/CY/0112', date: '2025-12-11' },
     { name: 'Kyle Reese', course: 'Data Analytics', certificateId: 'SHSL/25/DA/0113', date: '2025-12-12' },
@@ -34,6 +34,33 @@ const certificatesPageData: any[] = [
     { name: 'Trinity Moss', course: 'Cybersecurity', certificateId: 'SHSL/25/CY/0116', date: '2025-12-15' },
     { name: 'Morpheus Lawrence', course: 'Cloud Networking', certificateId: 'SHSL/25/CN/0117', date: '2025-12-16' },
     { name: 'Agent Smith', course: 'Data Analytics', certificateId: 'SHSL/25/DA/0118', date: '2025-12-17' },
+    { name: 'Tony Stark', course: 'Fibre Optics', certificateId: 'SHSL/25/FO/0119', date: '2025-12-18' },
+    { name: 'Bruce Banner', course: 'Data Analytics', certificateId: 'SHSL/25/DA/0120', date: '2025-12-19' },
+    { name: 'Natasha Romanoff', course: 'Cybersecurity', certificateId: 'SHSL/25/CY/0121', date: '2025-12-20' },
+    { name: 'Steve Rogers', course: 'Digital Marketing', certificateId: 'SHSL/25/DM/0122', date: '2025-12-21' },
+    { name: 'Clint Barton', course: 'Multimedia', certificateId: 'SHSL/25/MM/0123', date: '2025-12-22' },
+    { name: 'Wanda Maximoff', course: 'UI/UX Design', certificateId: 'SHSL/25/UX/0124', date: '2025-12-23' },
+    { name: 'Vision', course: 'Cloud Networking', certificateId: 'SHSL/25/CN/0125', date: '2025-12-24' },
+    { name: 'Peter Parker', course: 'Full Stack Web Dev.', certificateId: 'SHSL/25/FS/0126', date: '2025-12-25' },
+    { name: 'Stephen Strange', course: 'Data Analytics', certificateId: 'SHSL/25/DA/0127', date: '2025-12-26' },
+    { name: 'T\'Challa', course: 'Cybersecurity', certificateId: 'SHSL/25/CY/0128', date: '2025-12-27' },
+    { name: 'Shuri', course: 'Fibre Optics', certificateId: 'SHSL/25/FO/0129', date: '2025-12-28' },
+    { name: 'Okoye', course: 'Digital Marketing', certificateId: 'SHSL/25/DM/0130', date: '2025-12-29' },
+    { name: 'Sam Wilson', course: 'Multimedia', certificateId: 'SHSL/25/MM/0131', date: '2025-12-30' },
+    { name: 'Bucky Barnes', course: 'UI/UX Design', certificateId: 'SHSL/25/UX/0132', date: '2025-12-31' },
+    { name: 'Scott Lang', course: 'Cloud Networking', certificateId: 'SHSL/25/CN/0133', date: '2026-01-01' },
+    { name: 'Hope Pym', course: 'Full Stack Web Dev.', certificateId: 'SHSL/25/FS/0134', date: '2026-01-02' },
+    { name: 'Carol Danvers', course: 'Cybersecurity', certificateId: 'SHSL/25/CY/0135', date: '2026-01-03' },
+    { name: 'Nick Fury', course: 'Data Analytics', certificateId: 'SHSL/25/DA/0136', date: '2026-01-04' },
+    { name: 'Maria Hill', course: 'Fibre Optics', certificateId: 'SHSL/25/FO/0137', date: '2026-01-05' },
+    { name: 'Phil Coulson', course: 'Digital Marketing', certificateId: 'SHSL/25/DM/0138', date: '2026-01-06' },
+    { name: 'Daisy Johnson', course: 'Multimedia', certificateId: 'SHSL/25/MM/0139', date: '2026-01-07' },
+    { name: 'Melinda May', course: 'UI/UX Design', certificateId: 'SHSL/25/UX/0140', date: '2026-01-08' },
+    { name: 'Leo Fitz', course: 'Cloud Networking', certificateId: 'SHSL/25/CN/0141', date: '2026-01-09' },
+    { name: 'Jemma Simmons', course: 'Data Analytics', certificateId: 'SHSL/25/DA/0142', date: '2026-01-10' },
+    { name: 'Elena Rodriguez', course: 'Full Stack Web Dev.', certificateId: 'SHSL/25/FS/0143', date: '2026-01-11' },
+    { name: 'Alphonso Mackenzie', course: 'Cybersecurity', certificateId: 'SHSL/25/CY/0144', date: '2026-01-12' },
+    { name: 'Grant Ward', course: 'Fibre Optics', certificateId: 'SHSL/25/FO/0145', date: '2026-01-13' },
 ];
 
 const mockStudents: Student[] = [
@@ -142,13 +169,79 @@ const DashboardContent: React.FC = () => {
 };
 
 const CertificationsContent: React.FC = () => {
+  const [certificates, setCertificates] = useState(initialCertificatesPageData);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const filteredCertificates = certificatesPageData.filter(cert => 
+  const filteredCertificates = certificates.filter(cert => 
     cert.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     cert.course.toLowerCase().includes(searchQuery.toLowerCase()) ||
     cert.certificateId.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredCertificates.length / itemsPerPage);
+  const currentData = filteredCertificates.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+  );
+
+  const goToPage = (page: number) => {
+      if (page >= 1 && page <= totalPages) {
+          setCurrentPage(page);
+      }
+  };
+
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Check file extension
+    if (!file.name.endsWith('.csv')) {
+        alert('Please select a valid .csv file');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const text = e.target?.result as string;
+        if (!text) return;
+
+        // Simple CSV parser
+        // Assumes header row: Name, Course, Certificate ID, Date
+        const lines = text.split('\n').map(line => line.trim()).filter(line => line);
+        
+        if (lines.length <= 1) {
+            alert('CSV file is empty or contains only headers.');
+            return;
+        }
+
+        const newCertificates = lines.slice(1).map(line => {
+            // Handle basic CSV splitting (does not handle quoted commas)
+            const [name, course, certificateId, date] = line.split(',').map(item => item.trim());
+            if (name && course && certificateId && date) {
+                return { name, course, certificateId, date };
+            }
+            return null;
+        }).filter(item => item !== null);
+
+        if (newCertificates.length > 0) {
+            setCertificates(prev => [...newCertificates, ...prev]); // Add new entries to the top
+            alert(`Successfully imported ${newCertificates.length} certificates.`);
+        } else {
+            alert('Could not parse any valid certificates from the file. Please check the format.');
+        }
+    };
+    reader.readAsText(file);
+    // Reset input value to allow selecting the same file again
+    event.target.value = '';
+  };
 
   return (
     <div className="space-y-6">
@@ -163,7 +256,7 @@ const CertificationsContent: React.FC = () => {
                     type="text"
                     placeholder="Search for certification, courses, students"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
                     className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
                 />
             </div>
@@ -176,7 +269,17 @@ const CertificationsContent: React.FC = () => {
                 Create Certificate
             </button>
             
-            <button className="flex items-center justify-center bg-white text-indigo-700 border border-indigo-700 px-6 py-2.5 rounded-lg font-medium hover:bg-indigo-50 transition shadow-sm w-full sm:w-auto">
+            <input 
+                type="file" 
+                accept=".csv" 
+                ref={fileInputRef} 
+                style={{ display: 'none' }} 
+                onChange={handleFileChange} 
+            />
+            <button 
+                onClick={handleImportClick}
+                className="flex items-center justify-center bg-white text-indigo-700 border border-indigo-700 px-6 py-2.5 rounded-lg font-medium hover:bg-indigo-50 transition shadow-sm w-full sm:w-auto"
+            >
                 <ImportIcon className="w-5 h-5 mr-2" />
                 Import CSV File
             </button>
@@ -186,10 +289,6 @@ const CertificationsContent: React.FC = () => {
         {/* Filter & List Header */}
         <div className="flex flex-wrap justify-between items-center mt-8 gap-4">
             <h3 className="text-2xl font-bold text-gray-600">Recent Certificates</h3>
-            <button className="flex items-center text-gray-600 bg-white border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium">
-                <FilterListIcon className="w-4 h-4 mr-2" />
-                Filters
-            </button>
         </div>
 
         {/* Table */}
@@ -208,8 +307,8 @@ const CertificationsContent: React.FC = () => {
             </tr>
             </thead>
             <tbody>
-            {filteredCertificates.length > 0 ? (
-                filteredCertificates.map((cert, index) => (
+            {currentData.length > 0 ? (
+                currentData.map((cert, index) => (
                 <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="p-4">
                         <input type="checkbox" className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 h-4 w-4" />
@@ -233,15 +332,38 @@ const CertificationsContent: React.FC = () => {
         
         {/* Pagination */}
         <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-4 bg-white border-t border-gray-100 gap-4">
-            <p className="text-sm text-gray-500">Showing <span className="font-medium">{filteredCertificates.length > 0 ? '1-' + Math.min(filteredCertificates.length, 10) : '0'}</span> from <span className="font-medium">999+</span> data</p>
+            <p className="text-sm text-gray-500">
+                Showing <span className="font-medium">{(currentPage - 1) * itemsPerPage + 1}-{Math.min(currentPage * itemsPerPage, filteredCertificates.length)}</span> from <span className="font-medium">{filteredCertificates.length}</span> data
+            </p>
             <div className="flex items-center space-x-2">
-                <button className="p-1 text-gray-400 hover:text-gray-600">
+                <button 
+                    onClick={() => goToPage(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={`p-1 ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-400 hover:text-gray-600'}`}
+                >
                     <ChevronLeftIcon className="w-5 h-5" />
                 </button>
-                <button className="w-8 h-8 flex items-center justify-center rounded-full bg-indigo-700 text-white text-sm font-medium">1</button>
-                <button className="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 text-sm font-medium">2</button>
-                <button className="w-8 h-8 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 text-sm font-medium">3</button>
-                <button className="p-1 text-gray-400 hover:text-gray-600">
+                
+                {/* Dynamic Page Numbers */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                    <button 
+                        key={page}
+                        onClick={() => goToPage(page)}
+                        className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-medium ${
+                            currentPage === page 
+                            ? 'bg-indigo-700 text-white' 
+                            : 'text-gray-600 hover:bg-gray-100'
+                        }`}
+                    >
+                        {page}
+                    </button>
+                ))}
+
+                <button 
+                    onClick={() => goToPage(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className={`p-1 ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : 'text-gray-400 hover:text-gray-600'}`}
+                >
                     <ChevronRightIcon className="w-5 h-5" />
                 </button>
             </div>
