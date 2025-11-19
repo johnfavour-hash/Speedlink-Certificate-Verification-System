@@ -5,7 +5,7 @@ import {
   Logo, CertificateIcon, UsersIcon, ProfileIcon, LogoutIcon, 
   ArrowUpRightIcon, CloudIcon, FilePlusIcon, ImportIcon,
   FilterListIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon, BookOpenIcon, CheckCircleIcon, ClockIcon, SearchIcon,
-  CameraIcon, KeyIcon, MapPinIcon, MailIcon
+  CameraIcon, KeyIcon, MapPinIcon, MailIcon, DashboardIcon, AdminIcon, StudentIcon
 } from '../components/icons';
 import StatCard from '../components/StatCard';
 import Illustration from '../components/Illustration';
@@ -290,7 +290,7 @@ const StatsAndVerifyView: React.FC = () => {
                 <StatCard 
                     title="Active Students" 
                     value="3,200" 
-                    icon={<UsersIcon className="w-6 h-6 text-green-600" />} 
+                    icon={<StudentIcon className="w-6 h-6 text-green-600" />} 
                     color="bg-green-100" 
                 />
                 <StatCard 
@@ -583,10 +583,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout }) => {
           <aside className={`bg-[#3730a3] w-48 flex-shrink-0 flex flex-col transition-transform duration-300 ease-in-out transform absolute lg:relative inset-y-0 left-0 z-20 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
             <div className="flex-1 py-6 flex flex-col overflow-y-auto">
                 <nav className="space-y-1">
-                    <NavItem view={DashboardView.Dashboard} icon={<CloudIcon className="w-5 h-5" />} label="Dashboard" />
+                    <NavItem view={DashboardView.Dashboard} icon={<DashboardIcon className="w-5 h-5" />} label="Dashboard" />
                     <NavItem view={DashboardView.Certifications} icon={<CertificateIcon className="w-5 h-5" />} label="Certificates" />
-                    <NavItem view={DashboardView.Admins} icon={<UsersIcon className="w-5 h-5" />} label="Admins" />
-                    <NavItem view={DashboardView.Students} icon={<div className="relative"><div className="absolute -top-1 -right-1 w-2 h-2"></div><UsersIcon className="w-5 h-5" /></div>} label="Students" />
+                    <NavItem view={DashboardView.Admins} icon={<AdminIcon className="w-5 h-5" />} label="Admins" />
+                    <NavItem view={DashboardView.Students} icon={<StudentIcon className="w-5 h-5" />} label="Students" />
                     <NavItem view={DashboardView.Profile} icon={<ProfileIcon className="w-5 h-5" />} label="Profile" />
                 </nav>
             </div>
