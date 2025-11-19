@@ -501,6 +501,35 @@ const StatsAndVerifyView: React.FC = () => {
 };
 
 const ProfileContent: React.FC = () => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [userInfo, setUserInfo] = useState({
+        fullName: 'System Administrator',
+        email: 'admin@speedlink.com',
+        phone: '+234 800 123 4567',
+        location: 'Lagos, Nigeria'
+    });
+    const [editForm, setEditForm] = useState(userInfo);
+
+    const handleEditClick = () => {
+        setEditForm(userInfo);
+        setIsEditing(true);
+    };
+
+    const handleCancelClick = () => {
+        setIsEditing(false);
+    };
+
+    const handleSaveClick = () => {
+        setUserInfo(editForm);
+        setIsEditing(false);
+        // Typically API call here
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setEditForm(prev => ({ ...prev, [name]: value }));
+    };
+
     return (
         <div className="space-y-8">
             <h2 className="text-3xl font-bold text-gray-800">My Profile</h2>
@@ -512,38 +541,99 @@ const ProfileContent: React.FC = () => {
                     <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-xl font-bold text-gray-700">Personal Information</h3>
-                            <button className="text-sm text-indigo-600 font-medium hover:text-indigo-800">Edit</button>
+                            {!isEditing && (
+                                <button onClick={handleEditClick} className="text-sm text-indigo-600 font-medium hover:text-indigo-800">Edit</button>
+                            )}
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-500">Full Name</label>
-                                <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
-                                    <UsersIcon className="w-5 h-5 text-gray-400 mr-3" />
-                                    <span className="text-gray-800">System Administrator</span>
-                                </div>
+                                {isEditing ? (
+                                     <div className="flex items-center p-3 bg-white rounded-md border border-gray-200 focus-within:border-indigo-500 ring-1 ring-transparent focus-within:ring-indigo-500">
+                                        <UsersIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                        <input 
+                                            type="text" 
+                                            name="fullName"
+                                            value={editForm.fullName} 
+                                            onChange={handleInputChange}
+                                            className="w-full outline-none text-gray-800 bg-transparent text-sm" 
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
+                                        <UsersIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                        <span className="text-gray-800">{userInfo.fullName}</span>
+                                    </div>
+                                )}
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-500">Email Address</label>
-                                <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
-                                    <MailIcon className="w-5 h-5 text-gray-400 mr-3" />
-                                    <span className="text-gray-800">admin@speedlink.com</span>
-                                </div>
+                                {isEditing ? (
+                                     <div className="flex items-center p-3 bg-white rounded-md border border-gray-200 focus-within:border-indigo-500 ring-1 ring-transparent focus-within:ring-indigo-500">
+                                        <MailIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                        <input 
+                                            type="email" 
+                                            name="email"
+                                            value={editForm.email} 
+                                            onChange={handleInputChange}
+                                            className="w-full outline-none text-gray-800 bg-transparent text-sm" 
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
+                                        <MailIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                        <span className="text-gray-800">{userInfo.email}</span>
+                                    </div>
+                                )}
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-500">Phone Number</label>
-                                <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
-                                    <span className="text-gray-400 mr-3 w-5 text-center">#</span>
-                                    <span className="text-gray-800">+234 800 123 4567</span>
-                                </div>
+                                {isEditing ? (
+                                     <div className="flex items-center p-3 bg-white rounded-md border border-gray-200 focus-within:border-indigo-500 ring-1 ring-transparent focus-within:ring-indigo-500">
+                                        <span className="text-gray-400 mr-3 w-5 text-center">#</span>
+                                        <input 
+                                            type="tel" 
+                                            name="phone"
+                                            value={editForm.phone} 
+                                            onChange={handleInputChange}
+                                            className="w-full outline-none text-gray-800 bg-transparent text-sm" 
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
+                                        <span className="text-gray-400 mr-3 w-5 text-center">#</span>
+                                        <span className="text-gray-800">{userInfo.phone}</span>
+                                    </div>
+                                )}
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-500">Location</label>
-                                <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
-                                    <MapPinIcon className="w-5 h-5 text-gray-400 mr-3" />
-                                    <span className="text-gray-800">Lagos, Nigeria</span>
-                                </div>
+                                {isEditing ? (
+                                     <div className="flex items-center p-3 bg-white rounded-md border border-gray-200 focus-within:border-indigo-500 ring-1 ring-transparent focus-within:ring-indigo-500">
+                                        <MapPinIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                        <input 
+                                            type="text" 
+                                            name="location"
+                                            value={editForm.location} 
+                                            onChange={handleInputChange}
+                                            className="w-full outline-none text-gray-800 bg-transparent text-sm" 
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center p-3 bg-gray-50 rounded-md border border-gray-200">
+                                        <MapPinIcon className="w-5 h-5 text-gray-400 mr-3" />
+                                        <span className="text-gray-800">{userInfo.location}</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
+                        
+                        {isEditing && (
+                            <div className="flex justify-end space-x-4 mt-6 border-t border-gray-50 pt-4">
+                                <button onClick={handleCancelClick} className="px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 text-sm font-medium transition">Cancel</button>
+                                <button onClick={handleSaveClick} className="px-4 py-2 bg-indigo-600 rounded-md text-white hover:bg-indigo-700 text-sm font-medium transition">Save Changes</button>
+                            </div>
+                        )}
                     </div>
 
                     {/* Security Settings */}
@@ -554,19 +644,19 @@ const ProfileContent: React.FC = () => {
                                 <label className="text-sm font-medium text-gray-500">Current Password</label>
                                 <div className="flex items-center p-3 bg-white rounded-md border border-gray-200 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
                                     <KeyIcon className="w-5 h-5 text-gray-400 mr-3" />
-                                    <input type="password" placeholder="••••••••" className="w-full outline-none text-gray-700 placeholder-gray-300" />
+                                    <input type="password" placeholder="••••••••" className="w-full outline-none text-gray-700 placeholder-gray-300 text-sm" />
                                 </div>
                             </div>
                              <div className="space-y-2">
                                 <label className="text-sm font-medium text-gray-500">New Password</label>
                                 <div className="flex items-center p-3 bg-white rounded-md border border-gray-200 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
                                     <KeyIcon className="w-5 h-5 text-gray-400 mr-3" />
-                                    <input type="password" placeholder="••••••••" className="w-full outline-none text-gray-700 placeholder-gray-300" />
+                                    <input type="password" placeholder="••••••••" className="w-full outline-none text-gray-700 placeholder-gray-300 text-sm" />
                                 </div>
                             </div>
                          </div>
                          <div className="flex justify-end">
-                             <button className="bg-[#3730a3] text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-800 transition">
+                             <button className="bg-[#3730a3] text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-800 transition text-sm">
                                  Change Password
                              </button>
                          </div>
@@ -585,7 +675,7 @@ const ProfileContent: React.FC = () => {
                                 <CameraIcon className="w-4 h-4" />
                             </button>
                         </div>
-                        <h3 className="text-xl font-bold text-gray-800">System Administrator</h3>
+                        <h3 className="text-xl font-bold text-gray-800">{userInfo.fullName}</h3>
                         <p className="text-gray-500 text-sm mb-4">Super Admin</p>
                         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-600 mb-6">
                             <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
