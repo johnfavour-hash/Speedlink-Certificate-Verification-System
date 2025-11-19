@@ -26,12 +26,12 @@ const VerifiedCertificate: React.FC<VerifiedCertificateProps> = ({ certificate }
       {/* 
         Dynamic Content Overlay 
         These fields are positioned absolutely to land in the correct "spaces" 
-        of your certificate template.
+        of your certificate template based on the previous design.
       */}
       <div className="absolute inset-0 w-full h-full font-sans text-gray-900">
           
           {/* Certificate No - Top Right */}
-          <div className="absolute top-[12%] right-[11%] text-[8px] sm:text-[10px] md:text-xs font-bold tracking-wide">
+          <div className="absolute top-[12%] right-[11%] text-[8px] sm:text-[10px] md:text-xs font-bold tracking-wide text-gray-800">
              {certificate.certificateNo}
           </div>
 
@@ -50,7 +50,6 @@ const VerifiedCertificate: React.FC<VerifiedCertificateProps> = ({ certificate }
           </div>
 
           {/* Date - Center, approx 69% down */}
-          {/* Adjusted specifically to land in the "this day the ____," space */}
           <div className="absolute top-[69%] left-0 w-full text-center pl-2 md:pl-4">
              <span className="text-[10px] sm:text-xs md:text-sm font-bold text-gray-900">
                {certificate.issueDate}
