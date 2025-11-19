@@ -4,7 +4,7 @@ import { DashboardView, Certificate, Student, Page } from '../types';
 import { 
   Logo, CertificateIcon, UsersIcon, ProfileIcon, LogoutIcon, 
   SearchIcon, ArrowUpRightIcon, CloudIcon, FilePlusIcon, ImportIcon,
-  FilterListIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon, BookOpenIcon, CheckCircleIcon
+  FilterListIcon, ChevronLeftIcon, ChevronRightIcon, PlusIcon, BookOpenIcon, CheckCircleIcon, ClockIcon
 } from '../components/icons';
 import StatCard from '../components/StatCard';
 import Illustration from '../components/Illustration';
@@ -381,14 +381,6 @@ const StatsAndVerifyView: React.FC = () => {
 const StudentsContent: React.FC = () => <StatsAndVerifyView />;
 const AdminsContent: React.FC = () => <StatsAndVerifyView />;
 const ProfileContent: React.FC = () => <StatsAndVerifyView />;
-
-// Additional component for clock icon to support stat cards
-const ClockIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-);
-
 
 const DashboardPage: React.FC<DashboardPageProps> = ({ onLogout }) => {
   const [activeView, setActiveView] = useState<DashboardView>(DashboardView.Dashboard);
